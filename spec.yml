@@ -1,0 +1,611 @@
+openapi: 3.0.0
+servers:
+  - description: localhost server
+    url: http://localhost:3000
+info:
+  description: API para pedidos de comida . Como cliente, podras registrarte, ver el listado de nuestros productos y realizar una orden. Los administradores del restaurante tienen la posibilidad de recibir pedidos y actualizarlos.
+  version: "1.0.0"
+  title: Delilah Resto
+  contact:
+    email: mcollavino64@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: users
+    description: Operations available to users
+  - name: admins
+    description: Operations available to admins
+paths:
+  /users:
+    get:
+      tags:
+      - admins
+      summary: Users list
+      operationId: getUsers
+      description: Get all users 
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Users list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '401':
+          description: Error. Missing or invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Error you are not authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags: 
+      - users
+      summary: Create new user
+      operationId: UserRegister
+      description: Include new user in database
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid input 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: User already exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        description: New user information
+  /users/login:
+    post:
+      tags: 
+      - users
+      - admins
+      summary: Login to Delilah Resto 
+      operationId: loginToDelilah
+      description: Return JWT required to place orders with authentication
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginToken'
+        '401':
+          description: Incorrect credencials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginData'
+        description: User login information    
+  /users/{userID}:
+    get:
+      tags:
+      - users
+      - admins
+      summary: User information
+      operationId: getUserInformation
+      description: Get specific user information. User no admin only can access to "me" 
+      parameters: 
+        - name: userID
+          in: path
+          required: true
+          description: User ID. Use "me" for user identified by JWT
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Error. Missing or invalid token   
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Error you are not authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'        
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /products:
+    get:
+      tags:
+      - users
+      - admins
+      summary: Products list
+      operationId: getProducts
+      description: Get all products
+      responses:
+        '200':
+          description: Product list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      tags: 
+      - admins
+      summary: Include new product
+      operationId: createProduct
+      description: Create new product
+      security:
+      - bearerAuth: []
+      responses:
+        '200': 
+          description: Product created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Error you are not authorized  
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Product already exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        description: Product information   
+  /products/{productID}:
+    get:
+      tags:
+      - users
+      - admins
+      summary: Product information
+      operationId: getProductInformation
+      description: Get specific product information 
+      parameters: 
+        - name: productID
+          in: path
+          required: true
+          description: Product ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags: 
+      - admins
+      summary: Update product information
+      operationId: updateProductInformation
+      description: Update specific product information
+      parameters: 
+        - name: productID
+          in: path
+          required: true
+          description: Product ID
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200': 
+          description: Product information was updated
+        '400':
+          description: Invalid input 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Error you are not authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Invalid product ID. User does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: User already exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'        
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        description: Product information   
+    delete:
+      tags: 
+      - admins
+      summary: Delete Product
+      operationId: deleteProduct
+      description: Delete product by ID
+      parameters: 
+        - name: productID
+          in: path
+          required: true
+          description: Product ID
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200': 
+          description: Product was deleted
+        '403':
+          description: Error you are not authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Invalid product ID. User does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'    
+  /orders:
+    get:
+      tags:
+      - users
+      - admins
+      summary: Orders list
+      operationId: getOrders
+      description: With user token can access only to their own orders. With admin token can get all orders 
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Orders list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderInfo'
+        '403':
+          description: Error you are not authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'         
+    post:
+      tags: 
+      - users
+      - admin
+      summary: Place new order
+      operationId: placeOrder
+      description: Place new order
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Order placed
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+        '403':
+          description: Error you are not authorized  
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Product does not exist 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'        
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+        description: New order information  
+  /orders/{orderID}:
+    get:
+      tags:
+      - users
+      - admins
+      summary: Order information
+      operationId: getOrderInformation
+      description: Get specific order information 
+      parameters: 
+        - name: orderID
+          in: path
+          required: true
+          description: Order ID
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Order information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '403':
+          description: Error you are not authorized   
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Invalid order ID. Order does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags: 
+      - admins
+      summary: Update order information
+      operationId: updateOrderInformation
+      description: Update specific order information
+      parameters: 
+        - name: orderID
+          in: path
+          required: true
+          description: Order ID
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200': 
+          description: Order information was updated
+        '400':
+          description: Invalid input 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Error you are not authorized 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Invalid order ID. Order does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderStatus'
+        description: Order information 
+    delete:
+      tags: 
+      - admins
+      summary: Delete Order
+      operationId: deleteOrder
+      description: Delete order by ID
+      parameters: 
+        - name: orderID
+          in: path
+          required: true
+          description: Order ID
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200': 
+          description: Product was deleted
+        '403':
+          description: Error you are not authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Invalid order ID. Order does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'         
+components:
+  securitySchemes:
+    bearerAuth:            
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    LoginData:
+      type: object
+      required:
+        - usernameOrEmail
+        - password
+      properties:
+        usernameOrEmail:
+          type: string
+          example: queen_freddie, freddiemercury@gmail.com
+          description:  Alphanumeric characters are allowed. Only _-. special characteres allowed.
+        password:
+          type: string
+          example: Password123*
+          description: Alphanumeric and special characters are allowed.  
+    LoginToken:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Successful login
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZU9yRW1haWwiOiJqZWZmcnNrOCIsInBhc3N3b3JkIjoib3Ryb3Bhc3N3b3JkMTIzIiwiaWF0IjoxNjAwOTY3NTc0LCJleHAiOjE2MDA5Njc2MzR9.J8rOtG_Q7_gvgeO_ySh_gmecNKglA2MA0t8q_3RYGhs
+    Error:
+      type: object
+      properties:
+        code: 
+          type: string
+        message:
+          type: string
+    User:
+      type: object
+      required:
+        - username
+        - nombre
+        - telefono
+        - direccion
+        - contrasena
+        - correo
+      properties:
+        username:
+          type: string
+          example: marianoC
+        nombre:
+          type: string
+          example: Mariano Collavino
+        telefono:
+          type: string
+          example: +447712345675
+        direccion: 
+          type: string
+          example: 1 Logan PlKensignton, London W8 6DE, UK
+        contrasena:
+          type: string
+          example: Password123*
+          description: Alphanumeric and special characters are allowed.
+        correo:
+          type: string
+          format: email
+          example: marianocollavino@gmail.com
+          description: Alphanumeric characters are allowed. Only _-. special characteres allowed.  
+        rolID:
+          type: number
+    Product:
+      type: object
+      required:
+        - nombre
+        - precio
+        - activo
+        - imagen
+      properties:
+        nombre:
+          type: string
+          example: Hamburguesa Clásica
+        precio:
+          type: number
+          example: 660
+        activo:
+          type: number
+          example: 1 (activo) 0 (inactivo)
+        img:
+          type: string
+          example: http://lorempixel.com/output/food-q-c-200-200-9.jpg
+    Order:
+      type: object
+      required:
+        - products
+        - paymentMethod
+      properties:
+        products:
+          type: object
+          example: [1, 2, 3] 
+        paymentMethod: 
+          type: string
+          example: Card, Cash
+    OrderStatus:
+      type: object
+      required:
+        - status
+      properties:
+        status: 
+          type: string
+          example: confirmado, preparando, enviado, cancelado, entregado   
+    OrderInfo:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        status: 
+          type: string
+          example: nuevo 
+        time: 
+          type: string
+          example: 29 09 2020 03:37:38  
+        products:
+          type: object
+        user:
+          type: object
+        paymentMethod: 
+          type: string
+          example: Card, Cash
