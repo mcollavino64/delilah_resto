@@ -1,0 +1,11 @@
+INSERT INTO resto.productos (id, nombre, precio, activo, imagen) VALUES (1, 'hamburguesa clasica', 300.00, 1, 'https://via.placeholder.com/50');
+INSERT INTO resto.productos (id, nombre, precio, activo, imagen) VALUES (2, 'hamburguesa doble', 350.00, 1, 'https://via.placeholder.com/50');
+INSERT INTO resto.productos (id, nombre, precio, activo, imagen) VALUES (3, 'hamburguesa triple', 450.00, 1, 'https://via.placeholder.com/50');
+INSERT INTO resto.productos (id, nombre, precio, activo, imagen) VALUES (4, 'hamburguesa veggie', 250.00, 1, 'https://via.placeholder.com/50');
+INSERT INTO resto.productos (id, nombre, precio, activo, imagen) VALUES (5, 'pizza simple', 500.00, 1, 'https://via.placeholder.com/50');
+INSERT INTO resto.productos (id, nombre, precio, activo, imagen) VALUES (6, 'pizza especial', 600.00, 1, 'https://via.placeholder.com/50');
+INSERT INTO resto.productos (id, nombre, precio, activo, imagen) VALUES (7, 'gaseosa coca-cola 1L', 200.00, 1, 'https://via.placeholder.com/50');
+INSERT INTO resto.productos (id, nombre, precio, activo, imagen) VALUES (8, 'gaseosa sprite 1L', 200.00, 1, 'https://via.placeholder.com/50');
+INSERT INTO resto.productos (id, nombre, precio, activo, imagen) VALUES (9, 'gaseosa fanta 1L', 200.00, 1, 'https://via.placeholder.com/50');
+INSERT INTO resto.productos (id, nombre, precio, activo, imagen) VALUES (10, 'helado frutal', 200.00, 1, 'https://via.placeholder.com/50');
+INSERT INTO resto.productos (id, nombre, precio, activo, imagen) VALUES (10, 'bombom helado', 220.00, 1, 'https://via.placeholder.com/50');

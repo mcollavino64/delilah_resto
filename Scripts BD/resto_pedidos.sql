@@ -1,0 +1,3 @@
+INSERT INTO resto.pedidos (id, fecha, usuarios_id, formas_pago_id, precio_total, estado) VALUES (1, '2021-04-01 17:03:23', 3, 2, 10.00, 'nuevo');
+INSERT INTO resto.pedidos (id, fecha, usuarios_id, formas_pago_id, precio_total, estado) VALUES (2, '2021-03-01 17:03:23', 1, 1, 10.00, 'confirmado');
+INSERT INTO resto.pedidos (id, fecha, usuarios_id, formas_pago_id, precio_total, estado) VALUES (3, '2021-05-01 17:03:23', 3, 3, 10.00, 'finalizado');

@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "cd270f26-43c4-4ace-8cbf-0e117633a09e",
+		"name": "delilah resto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post new User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "Create a new User"
+			},
+			"response": []
+		},
+		{
+			"name": "get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "traer todos los usuarios"
+			},
+			"response": []
+		},
+		{
+			"name": "get users id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "mostrar un usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "get all Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "Traer todos los productos activos "
+			},
+			"response": []
+		},
+		{
+			"name": "get Product by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "traer un producto por su id"
+			},
+			"response": []
+		},
+		{
+			"name": "post Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "Crear un nuevo Producto"
+			},
+			"response": []
+		},
+		{
+			"name": "put Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "modificar datos de un producto"
+			},
+			"response": []
+		},
+		{
+			"name": "delete Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "Borrado logico , solo modifica el campo activo = false"
+			},
+			"response": []
+		},
+		{
+			"name": "get all Pedidos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "traer todos los pedidos\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "get Pedido by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "trar un pedido por su id\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "post Pedido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "insert de un pedido"
+			},
+			"response": []
+		},
+		{
+			"name": "get pedidos nuevos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "Traer todos los pedidos con el estado=nuevo (Carrito)"
+			},
+			"response": []
+		},
+		{
+			"name": "put pedido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "update pedido\r\n"
+			},
+			"response": []
+		}
+	]
+}
