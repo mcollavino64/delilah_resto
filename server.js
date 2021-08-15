@@ -207,6 +207,23 @@ app.put("/pedidos/:id",validarAdmin,validarExistenciaPedido,async (req, res) => 
     }
 });
 
+/**
+ * Delete order by id (only admin)
+ */
+app.delete("/pedidos/:id", validarAdmin,async (req,res) =>{
+    
+    try{        
+        await pedidos.destroy({
+            where: { id: Number(req.params.id) }
+        });
+        res.status(200).send("Order was deleted");
+    }catch(e){
+        res.status(400).json( {error: e.message }); 
+    }
+   
+});
+
+
 app.listen(APP_PORT, () => {
   console.info("server corriendo en puerto " + APP_PORT);
 });

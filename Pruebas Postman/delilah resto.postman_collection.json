@@ -171,6 +171,36 @@
 				"description": "update pedido\r\n"
 			},
 			"response": []
+		},
+		{
+			"name": "Delete Order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoyLCJjb3JyZW8iOiJqY29sbGF2aW5vQGdtYWlsLmNvbSIsIm5vbWJyZSI6Imp1YW4iLCJyb2wiOnsiaWQiOjIsIm5vbWJyZSI6ImFkbWluIn19LCJpYXQiOjE2MjkwNDY4NTQsImV4cCI6MTYyOTA1MDQ1NH0.R6HLvPjEDJOw7cGx7BMvPy7PAmHxxAgPiJcDoOXiP7o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/pedidos/15",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos",
+						"15"
+					]
+				},
+				"description": "Delete order by id"
+			},
+			"response": []
 		}
 	]
 }
